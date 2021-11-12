@@ -1,0 +1,22 @@
+{
+  "name": "imagecake",
+  "version": "1.0.0",
+  "description": "Making some images!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgraue/ImageCake.git"
+  },
+  "author": "RyanG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rgraue/ImageCake/issues"
+  },
+  "homepage": "https://github.com/rgraue/ImageCake#readme",
+  "dependencies": {
+    "pngjs": "^6.0.0"
+  }
+}
