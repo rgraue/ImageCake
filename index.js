@@ -1,12 +1,20 @@
 let png = require('pngjs').PNG;
 let fs = require('fs');
-const Layer = require('./modules/layer')
+let Layer = require('./modules/layer')
 
-let pngData = png.sync.read(fs.readFileSync('imgs/background.png'));
-
+let pngData = png.sync.read(fs.readFileSync('imgs/Cowboy.png'));
 let base = new Layer(pngData, 0);
 
-console.log(base);
+
+
+pngData = png.sync.read(fs.readFileSync('imgs/fish.png'));
+let fish = new Layer(pngData, 1);
+
+base.Mesh(fish);
+
+fs.writeFileSync('imgs/out.png', png.sync.write(base._png));
+
+// pngData.pack().pipe(fs.createWriteStream('./imgs/out.png'));
 
 // open file stream of png
 // fs.createReadStream('imgs/background.png').pipe(
