@@ -1,2 +1,2 @@
 # svgCake
-Layers multiple images (.svg) to create a single image
+Layers multiple images (.png) to create a single image
