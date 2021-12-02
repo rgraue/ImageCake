@@ -12,6 +12,7 @@ let fish = new Layer(pngData, 1);
 
 base.Mesh(fish);
 
+
 fs.writeFileSync('imgs/out.png', png.sync.write(base._png));
 
 // pngData.pack().pipe(fs.createWriteStream('./imgs/out.png'));
