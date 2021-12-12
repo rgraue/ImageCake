@@ -26,7 +26,7 @@ class Layer {
         // iterates through the top image buffer.
         for (let y = 0; y<top.height;y++){
             for (let x = 0; x<top.width;x++){
-                let indexB = ((bottom.width * (y+ yOffset)  + x) + xOffest)<< 2; // Bottom index
+                let indexB = ((bottom.width * (y+ yOffset)  + x) + xOffset)<< 2; // Bottom index
                 let indexT = (top.width * y + x) << 2; // Top index
 
                 // determines whether part of images is transparent
