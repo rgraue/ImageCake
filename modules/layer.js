@@ -6,9 +6,13 @@ class Layer {
 
     }
 
-    // meshes two images togther. The lower level is set as the base.
-    // The top is placed 'on top' of the base
-    Mesh (rhs) {
+    /**
+     * Meshes two layer together. The lowest level becomes the base for the new layer
+     * @param {Layer} rhs Layer to mesh together.
+     * @param {Number} xOffset X-axis offset for top Layer
+     * @param {Number} yOffset Y-axis offset for top Layer
+     */
+    Mesh (rhs, xOffset = 0, yOffset = 0) {
         //sets the base and top
         let top = rhs._png;
         let bottom = this._png;
@@ -18,11 +22,7 @@ class Layer {
             top = this._png;
             bottom = rhs._png;
         }
-
-        // offset to move top image over and down. starts at top left (0,0)
-        let xOffest = 100;
-        let yOffset = 100;
-        
+       
         // iterates through the top image buffer.
         for (let y = 0; y<top.height;y++){
             for (let x = 0; x<top.width;x++){
