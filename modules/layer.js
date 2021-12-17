@@ -12,7 +12,7 @@ class Layer {
      * @param {Number} xOffset X-axis offset for top Layer
      * @param {Number} yOffset Y-axis offset for top Layer
      */
-    Mesh (rhs, xOffset = 0, yOffset = 0) {
+    mesh (rhs, xOffset = 0, yOffset = 0) {
         //sets the base and top
         let top = rhs._png;
         let bottom = this._png;
@@ -44,6 +44,10 @@ class Layer {
                 }
             }
         }
+    }
+
+    setPNG (x) {
+        this._png = x;
     }
 
      toString () {

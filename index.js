@@ -1,20 +1,29 @@
 const IPFS = require('ipfs')
 const PNG = require('pngjs').PNG;
-let fs = require('fs')
-const Layer = require('./modules/layer')
+const map = require('./data/map.json')
+const Cake = require('./modules/cake')
+// COMPLEXITY = num of element files to read from
+const COMPLEXITY = 2;
 
-let x = getNode();
-printPromise(x);
+let origin = getOriginJSON();
+getNode(origin)
 
-async function getNode () {
+async function getNode (origin) {
     const node = await IPFS.create();
-    let pic = new PNG();
+    let data = [];
     try {
-        const stream = await node.cat('QmXdd8iPmrbqcAY48icYBezdBV7n3WuZi5DjuTkXKvShRc');
-        for await (let chunk of stream){
-            pic = PNG.sync.read(chunk);
+        for (let i =0; i<5; i++){
+            let pic = new PNG();
+            const stream = await node.cat(origin[i]);
+            for await (let chunk of stream){
+                pic = PNG.sync.read(chunk);
+            }
+            data.push(pic)
         }
-        return pic;
+        let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
+        cake.render();
+        cake.write('imgs/out.png')
+        console.log("cake baked!")
     } catch (error){
         console.log(error)
     }
@@ -22,39 +31,17 @@ async function getNode () {
 
 }
 
-async function printPromise (x) {
-    try {
-        let pic = await x;
-        console.log(pic)
-        fs.writeFileSync('imgs/out.png', PNG.sync.write(pic))
-    }catch (error){
-        console.log(error)
-    }
-} 
+/**
+ * Randomly creates JSON of origin elements.
+ * @returns JSON of Layer files to use
+ */
+function getOriginJSON () {
+    let result = {};
+    result[0] = map.backgrounds[Math.floor((Math.random() * COMPLEXITY))]
+    result[1] = map.bodies[Math.floor((Math.random() * COMPLEXITY))]
+    result[2] = map.heads[Math.floor((Math.random() * COMPLEXITY))]
+    result[3] = map.hats[Math.floor((Math.random() * COMPLEXITY))]
+    result[4] = map.glasses[Math.floor((Math.random() * COMPLEXITY))]
+    return result;
+}
 
-// let pngData = png.sync.read(fs.readFileSync('imgs/RedBack.png'));
-// let base = new Layer(pngData, 0);
-
-
-
-// pngData = png.sync.read(fs.readFileSync('imgs/PinkFace.png'));
-// let fish = new Layer(pngData, 1);
-
-// base.Mesh(fish,20,20);
-
-
-// fs.writeFileSync('imgs/out.png', png.sync.write(base._png));
-
-// pngData.pack().pipe(fs.createWriteStream('./imgs/out.png'));
-
-
-// open file stream of png
-// fs.createReadStream('imgs/background.png').pipe(
-//     new png({
-//         filterType : 4,
-//     })
-// ).on('parsed', function (){
-//     // DO STUFF HERE
-//     // packs png into stream and Writes to file stream
-//     this.pack().pipe(fs.createWriteStream('imgs/out.png'));
-// });
