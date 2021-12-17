@@ -1,0 +1,22 @@
+{
+    "backgrounds":{
+        "0":"QmXdd8iPmrbqcAY48icYBezdBV7n3WuZi5DjuTkXKvShRc",
+        "1":"QmRKMugaVdR2u4DDV4ExUeRSsQaFZkyd9WaP2XcTztE2vJ"
+    },
+    "bodies":{
+        "0": "Qmb3tJ93gHucHQ853McjiUcRYDacxoV64MVM8xNa9vuKVK",
+        "1": "QmNnotm2vz9nDV3ArHAaYYFN3gK3oTMFe99vkeDh9w1ZCD"
+    },
+    "glasses":{
+        "0":"QmYWPM5sZ2kq5DoFXYwb85DtSPCj6CkPAocGvQpzUKerVK",
+        "1":"QmYenbm9a1vEQTsG5nvsHZEBfmso71o5Ag3X2T4b7kMDVG"
+    },
+    "hats":{
+        "0": "QmdYT6yLoDJSqAnzkd5drrERaPkU44XzUEXC2sswsqsTvy",
+        "1": "QmRWqrzbExZjfp6vJ1S4wmGPWhwXviuE8TdCzqDVrkkiTC"
+    },
+    "heads":{
+        "0":"QmcWNAeQHMtcUC5MkqXqLN72pFprYTuPjjwv91wihKgRue",
+        "1": "QmakyhPKTbF1QihGVYUzJXrMLao153eD6odRmmsRKGpB9f"
+    }
+}
