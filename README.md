@@ -1,5 +1,5 @@
 # ImageCake
-Layers multiple images (.png) to create a single image
+## Node application to layer multiple png files to create a single png cake
 
 Utilizes
 - IPFS - asset storage
