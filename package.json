@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rgraue/ImageCake#readme",
   "dependencies": {
+    "ipfs": "^0.61.0",
     "pngjs": "^6.0.0"
   }
 }

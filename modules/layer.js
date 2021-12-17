@@ -30,8 +30,8 @@ class Layer {
                 let indexT = (top.width * y + x) << 2; // Top index
 
                 // determines whether part of images is transparent
-                if ((top.data[indexT] !== 0xee && top.data[indexT] !== 0xee &&
-                        top.data[indexT + 2] !== 0xee) 
+                if ((top.data[indexT] !== 0x000 && top.data[indexT] !== 0x000 &&
+                        top.data[indexT + 2] !== 0x000) 
                         && 
                     (top.data[indexT] !== 0xff && top.data[indexT] !== 0xff &&
                         top.data[indexT + 2] !== 0xff)){
