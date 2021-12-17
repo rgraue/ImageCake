@@ -31,10 +31,7 @@ class Layer {
 
                 // determines whether part of images is transparent
                 if ((top.data[indexT] !== 0x000 && top.data[indexT] !== 0x000 &&
-                        top.data[indexT + 2] !== 0x000) 
-                        && 
-                    (top.data[indexT] !== 0xff && top.data[indexT] !== 0xff &&
-                        top.data[indexT + 2] !== 0xff)){
+                        top.data[indexT + 2] !== 0x000)){
 
                     // if not transaprent replace base pixel data with top pixel data (rgba)
                     bottom.data[indexB] = top.data[indexT];

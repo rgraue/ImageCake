@@ -19,6 +19,7 @@ async function getNode (origin) {
                 pic = PNG.sync.read(chunk);
             }
             data.push(pic)
+            //console.log(pic.height)
         }
         let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
         cake.render();
