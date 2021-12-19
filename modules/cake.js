@@ -39,6 +39,10 @@ class Cake {
         this.data.mesh(this.glasses, centerOffset, glassesYOffset);
      }
 
+     /**
+      * Writes to given file
+      * @param {*string} file File to write to
+      */
      write (file) {
         fs.writeFileSync(file, PNG.sync.write(this.data._png))
      }

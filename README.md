@@ -4,3 +4,5 @@
 ### Utilizes
 - IPFS - asset storage
 - pngjs - png decoding
+
+Shoutout to **Taylor** for the art!
