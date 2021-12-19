@@ -11,6 +11,9 @@ class Cake {
         this.hat = new Layer(hat,3); 
         this.glasses = new Layer(glasses,4);
      }
+     /**
+      * Renders image by overlaying each asset ontop of base (this.data)
+      */
      render () {
         // background limits
         let fullWidth = this.data._png.width;
@@ -45,6 +48,14 @@ class Cake {
       */
      write (file) {
         fs.writeFileSync(file, PNG.sync.write(this.data._png))
+     }
+
+     /**
+      * writes to file in RLE compression
+      * @param {stirng} file file to write to
+      */
+     writeRLE (file) {
+
      }
 }
 

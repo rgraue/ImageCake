@@ -6,21 +6,28 @@ const Cake = require('./modules/cake')
 const COMPLEXITY = 2;
 
 let origin = getOriginJSON();
-getNode(origin)
+getIMG(origin)
 
-async function getNode (origin) {
+/**
+ * Retrieves img elements and combines to create single img.
+ * @param {object} origin JSON containing ipfs URIs to elements
+ */
+async function getIMG (origin) {
     const node = await IPFS.create();
     let data = [];
     try {
+        // iterate trhough origin JSON and add png data to array of all elements
         for (let i =0; i<5; i++){
             let pic = new PNG();
-            const stream = await node.cat(origin[i]);
+            const stream = await node.cat(origin[i]); // Create stream to ipfs CID
             for await (let chunk of stream){
                 pic = PNG.sync.read(chunk);
             }
             data.push(pic)
-            //console.log(pic.height)
         }
+        node.stop()
+
+        // Creates Cake and renders img to out.png
         let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
         cake.render();
         cake.write('imgs/out.png')
