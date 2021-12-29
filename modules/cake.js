@@ -56,25 +56,27 @@ class Cake {
 
      /**
       * writes to file in RLE compression
-      * @param {stirng} file file to write to
+      * @param {String} file file to write to
       */
    genRLE () {
       console.log("rle");
       let rle = '';
       let n = 0;
       let chunk = '';
+      //Iterate through png data
       for (let y = 0; y < this.data._png.height; y++){
          for (let x = 0; x < this.data._png.width; x++){
             let index = (this.data._png.width * y + x) << 2;
+            // Create hex value of current pixel (#rgb)
             let current = '#' +   this.data._png.data[index].toString(16) + 
                                  this.data._png.data[index + 1].toString(16) + 
                                  this.data._png.data[index + 2].toString(16)
-            if (chunk === ''){
+            if (chunk === ''){ // starting fence post catch.
                chunk = current;
             }
-            if (current === chunk){
+            if (current === chunk){ // If the same pixel val occurs again, incriment n
                n++;
-            } else {
+            } else {                // If different pixel val, then add rle val of previous pixel val to result.
                rle += n + chunk;
                n = 1;
                chunk = current;
@@ -84,6 +86,10 @@ class Cake {
       return rle;
    }
 
+   /**
+    * Generates an svg of the cake image data
+    * @returns string of svg content
+    */
    genSVG () {
       let rle = this.genRLE();
       let svg = '<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">'
@@ -92,15 +98,22 @@ class Cake {
       return svg;
    }
 
+   /**
+    * Generates the rect elements for and svg.
+    * Each <rect/> is 1px tall and has a width of however many pixels in the row have the same #hex color val.
+    * @param {String} data Custom rle string of cake image data.
+    * @returns String of rects to insert into overlying svg
+    */
    genRects (data) {
       let result = '';
       let currWidth = 0;
       let currRow = 0;
       let pieces = this.genPieces(data);
+      // Iterate through individual pieces gernated in rle.
       for (let i = 0; i < pieces.length; i++){
          let chunk = pieces[i].split('#');
-         let width = Number(chunk[0]);
-         let color = chunk[1];
+         let width = Number(chunk[0]);       // width/number of pixels with same val.
+         let color = chunk[1];               // hex color val.
          if (width + currWidth >= this.data._png.width){ // if chunk width + current x pos will go past border boundary
             result += '<rect width="'+(128 - currWidth)+'" height="1" x="'+currWidth+'" y="'+currRow +'" fill="#' + color + '"/>';
             pieces[i] = (width - (128 - currWidth)) + '#' + color;
@@ -115,12 +128,17 @@ class Cake {
       return result;
    }
 
+   /**
+    * Seperates the rle string into its seperate parts of width and hex color val.
+    * @param {String} data Custom rle of png data.
+    * @returns Array of individual pieces/chunks
+    */
    genPieces (data) {
       let result = [];
       let chunk = '';
       for (let i = 0; i < data.length; i ++){
          if (data[i] === '#'){
-            chunk += data.substring(i, i + 7);
+            chunk += data.substring(i, i + 7); // substring of color val
             result.push(chunk);
             chunk = '';
             i += 6;
