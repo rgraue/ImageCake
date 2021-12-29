@@ -79,7 +79,7 @@ class Cake {
                n++;
             } else {
                rle += n + chunk;
-               n = 0;
+               n = 1;
                chunk = current;
             } 
          }
