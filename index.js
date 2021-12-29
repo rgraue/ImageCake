@@ -2,7 +2,7 @@ const IPFS = require('ipfs')
 const PNG = require('pngjs').PNG;
 const map = require('./data/map.json')
 const Cake = require('./modules/cake')
-// COMPLEXITY = num of element files to read from
+// COMPLEXITY = num of element files to read from.
 const COMPLEXITY = 2;
 const args = process.argv.slice(2);
 
