@@ -51,7 +51,7 @@ class Cake {
    }
 
    writeSVG (file) {
-      let result = '<'
+      fs.writeFileSync(file, this.genSVG());
    }
 
      /**
@@ -86,11 +86,10 @@ class Cake {
 
    genSVG () {
       let rle = this.genRLE();
-      let svg = '<svg width="128" height="128">'
+      let svg = '<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">'
       svg += this.genRects(rle);
       svg += '</svg>';
       return svg;
-
    }
 
    genRects (data) {
@@ -100,19 +99,20 @@ class Cake {
       let pieces = this.genPieces(data);
       for (let i = 0; i < pieces.length; i++){
          let chunk = pieces[i].split('#');
-         let width = chunk[0];
+         let width = Number(chunk[0]);
          let color = chunk[1];
-         if (width > this.data._png.width){ // if width is greater then img width (128px)
-            result += '<rect width="128" height = "1" x="'+currWidth+'" y="'+currRow +'" fill="#' + color + '">';
-            pieces[i] = width + '#' + height;
+         if (width + currWidth >= this.data._png.width){ // if chunk width + current x pos will go past border boundary
+            result += '<rect width="'+(128 - currWidth)+'" height="1" x="'+currWidth+'" y="'+currRow +'" fill="#' + color + '"/>';
+            pieces[i] = (width - (128 - currWidth)) + '#' + color;
+            currWidth = 0;
+            currRow++;
             i--;
-         } 
-         /**
-          * TODO
-          * if smaller then img width
-          * if goes over and wraps around
-          */
+         } else {
+            result += '<rect width="'+width+'" height="1" x="'+currWidth+'" y ="' + currRow + '" fill="#' + color + '"/>';
+            currWidth += width;
+         }
       }
+      return result;
    }
 
    genPieces (data) {

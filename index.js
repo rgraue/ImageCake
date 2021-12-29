@@ -61,8 +61,6 @@ async function createIPFS (origin) {
     } catch (error){
         console.log(error)
     }
-    
-
 }
 
 /**
@@ -74,8 +72,9 @@ function generateCake (data) {
     let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
     cake.render();
     cake.write('data/out.png')
-    console.log(cake.genSVG());
+    cake.writeSVG('data/out.svg')
     console.log("cake baked!")
+    console.log("image saved in data folder as out.png and out.svg")
 }
 
 /**
