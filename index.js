@@ -8,7 +8,8 @@ const args = process.argv.slice(2);
 
 function main () {
     if (args.length === 0){
-        console.log("default");
+        let origin = getLocalOrigin();
+        console.log(origin);
     } else {
         let format = args[0];
         if (format === 'ipfs'){
@@ -16,7 +17,8 @@ function main () {
             let origin = getIPFSOrigin();
             createIPFS(origin);
         } else {
-            // local file storage
+            let origin = getLocalOrigin();
+            console.log(origin);
         }
     }
 }
@@ -53,7 +55,7 @@ async function createIPFS (origin) {
 }
 
 /**
- * Randomly creates JSON of origin elements.
+ * Randomly creates JSON of origin elements stored in IPFS.
  * @returns JSON of Layer files to use
  */
 function getIPFSOrigin () {
@@ -63,6 +65,20 @@ function getIPFSOrigin () {
     result[2] = map.heads[Math.floor((Math.random() * COMPLEXITY))]
     result[3] = map.hats[Math.floor((Math.random() * COMPLEXITY))]
     result[4] = map.glasses[Math.floor((Math.random() * COMPLEXITY))]
+    return result;
+}
+
+/**
+ * Randomly creates list of elements to used. Elements are stored locally in data folder
+ * @returns List of orgin locations for elements
+ */
+function getLocalOrigin () {
+    let result = {};
+    result[0] = 'data/backgrounds/background' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[1] = 'data/bodies/body' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[2] = 'data/heads/head' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[3] = 'data/hats/hats' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[4] = 'data/glasses/glasses' + Math.floor((Math.random() * COMPLEXITY)) + '.png';
     return result;
 }
 
