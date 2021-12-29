@@ -2,25 +2,41 @@ const IPFS = require('ipfs')
 const PNG = require('pngjs').PNG;
 const map = require('./data/map.json')
 const Cake = require('./modules/cake')
+const fs = require('fs')
 // COMPLEXITY = num of element files to read from
 const COMPLEXITY = 2;
 const args = process.argv.slice(2);
 
+/**
+ * Entry point. Creates a single image dpeending on local or IPFS data.
+ */
 function main () {
-    if (args.length === 0){
+    if (args.length === 0){                 // if no args
         let origin = getLocalOrigin();
-        console.log(origin);
+        createLocal(origin);
     } else {
         let format = args[0];
-        if (format === 'ipfs'){
+        if (format === 'ipfs'){              // if arg = ipfs
             // ipfs file storage
             let origin = getIPFSOrigin();
             createIPFS(origin);
-        } else {
+        } else {                             // if any other arg given   
             let origin = getLocalOrigin();
-            console.log(origin);
+            createLocal(origin);
         }
     }
+}
+
+/**
+ * Creates a layered image using local imgs
+ * @param {object} origin object containing png elements
+ */
+function createLocal (origin) {
+    let data = [];
+    for (let i = 0; i < 5; i++){
+        data.push(PNG.sync.read(fs.readFileSync(origin[i])));
+    }
+    generateCake(data);
 }
 
 /**
@@ -41,17 +57,24 @@ async function createIPFS (origin) {
             data.push(pic)
         }
         node.stop()
-
-        // Creates Cake and renders img to out.png
-        let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
-        cake.render();
-        cake.write('imgs/out.png')
-        console.log("cake baked!")
+        generateCake(data);
     } catch (error){
         console.log(error)
     }
     
 
+}
+
+/**
+ * Generates a single image using all elements
+ * @param {array} data Contains all png data
+ */
+function generateCake (data) {
+    // Creates Cake and renders img to out.png
+    let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
+    cake.render();
+    cake.write('data/out.png')
+    console.log("cake baked!")
 }
 
 /**
@@ -77,11 +100,12 @@ function getLocalOrigin () {
     result[0] = 'data/backgrounds/background' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
     result[1] = 'data/bodies/body' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
     result[2] = 'data/heads/head' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[3] = 'data/hats/hats' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[3] = 'data/hats/hat' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
     result[4] = 'data/glasses/glasses' + Math.floor((Math.random() * COMPLEXITY)) + '.png';
     return result;
 }
 
+// Sets entry point as main()
 if (require.main === module){
     main();
 }
