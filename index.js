@@ -4,15 +4,28 @@ const map = require('./data/map.json')
 const Cake = require('./modules/cake')
 // COMPLEXITY = num of element files to read from
 const COMPLEXITY = 2;
+const args = process.argv.slice(2);
 
-let origin = getOriginJSON();
-getIMG(origin)
+function main () {
+    if (args.length === 0){
+        console.log("default");
+    } else {
+        let format = args[0];
+        if (format === 'ipfs'){
+            // ipfs file storage
+            let origin = getIPFSOrigin();
+            createIPFS(origin);
+        } else {
+            // local file storage
+        }
+    }
+}
 
 /**
  * Retrieves img elements and combines to create single img.
  * @param {object} origin JSON containing ipfs URIs to elements
  */
-async function getIMG (origin) {
+async function createIPFS (origin) {
     const node = await IPFS.create();
     let data = [];
     try {
@@ -43,7 +56,7 @@ async function getIMG (origin) {
  * Randomly creates JSON of origin elements.
  * @returns JSON of Layer files to use
  */
-function getOriginJSON () {
+function getIPFSOrigin () {
     let result = {};
     result[0] = map.backgrounds[Math.floor((Math.random() * COMPLEXITY))]
     result[1] = map.bodies[Math.floor((Math.random() * COMPLEXITY))]
@@ -51,5 +64,9 @@ function getOriginJSON () {
     result[3] = map.hats[Math.floor((Math.random() * COMPLEXITY))]
     result[4] = map.glasses[Math.floor((Math.random() * COMPLEXITY))]
     return result;
+}
+
+if (require.main === module){
+    main();
 }
 
