@@ -1,5 +1,6 @@
 #imgs
 /imgs
+.DS_Store
 
 # Logs
 logs
