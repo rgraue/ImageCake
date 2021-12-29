@@ -74,7 +74,7 @@ function generateCake (data) {
     let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
     cake.render();
     cake.write('data/out.png')
-    console.log(cake.genRLE());
+    console.log(cake.genSVG());
     console.log("cake baked!")
 }
 

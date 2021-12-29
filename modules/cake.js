@@ -66,15 +66,12 @@ class Cake {
       for (let y = 0; y < this.data._png.height; y++){
          for (let x = 0; x < this.data._png.width; x++){
             let index = (this.data._png.width * y + x) << 2;
-         
             let current = '#' +   this.data._png.data[index].toString(16) + 
                                  this.data._png.data[index + 1].toString(16) + 
                                  this.data._png.data[index + 2].toString(16)
-
             if (chunk === ''){
                chunk = current;
             }
-
             if (current === chunk){
                n++;
             } else {
@@ -85,6 +82,53 @@ class Cake {
          }
       }
       return rle;
+   }
+
+   genSVG () {
+      let rle = this.genRLE();
+      let svg = '<svg width="128" height="128">'
+      svg += this.genRects(rle);
+      svg += '</svg>';
+      return svg;
+
+   }
+
+   genRects (data) {
+      let result = '';
+      let currWidth = 0;
+      let currRow = 0;
+      let pieces = this.genPieces(data);
+      for (let i = 0; i < pieces.length; i++){
+         let chunk = pieces[i].split('#');
+         let width = chunk[0];
+         let color = chunk[1];
+         if (width > this.data._png.width){ // if width is greater then img width (128px)
+            result += '<rect width="128" height = "1" x="'+currWidth+'" y="'+currRow +'" fill="#' + color + '">';
+            pieces[i] = width + '#' + height;
+            i--;
+         } 
+         /**
+          * TODO
+          * if smaller then img width
+          * if goes over and wraps around
+          */
+      }
+   }
+
+   genPieces (data) {
+      let result = [];
+      let chunk = '';
+      for (let i = 0; i < data.length; i ++){
+         if (data[i] === '#'){
+            chunk += data.substring(i, i + 7);
+            result.push(chunk);
+            chunk = '';
+            i += 6;
+         } else {
+            chunk += data[i];
+         }
+      }
+      return result;
    }
 }
 
