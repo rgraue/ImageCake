@@ -4,7 +4,7 @@ Node application to create randomized layered images.
 Utilizes both local and IPFS storgae.
 
 ## Usage
-node dependencies `npm install ipfs pngjs`
+node dependencies `npm install`
 
 After dependecies are installed/updated...
 
