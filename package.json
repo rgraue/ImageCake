@@ -18,6 +18,8 @@
   "homepage": "https://github.com/rgraue/ImageCake#readme",
   "dependencies": {
     "ipfs": "^0.61.0",
-    "pngjs": "^6.0.0"
+    "pngjs": "^6.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
