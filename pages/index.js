@@ -1,11 +1,11 @@
 import Head from 'next/head';
-import CakeDisplay from './components/cakeDisplay'
+import IntroControls from './components/introControls';
 
 function index () {
     return (
     <body>
         <h1>Image Cake</h1>
-        <CakeDisplay />
+        <IntroControls/>
     </body>
     )
 }
