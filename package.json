@@ -21,9 +21,10 @@
   },
   "homepage": "https://github.com/rgraue/ImageCake#readme",
   "dependencies": {
+    "bootstrap": "^5.1.3",
     "ipfs": "^0.61.0",
-    "pngjs": "^6.0.0",
     "next": "12.0.7",
+    "pngjs": "^6.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
