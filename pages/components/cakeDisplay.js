@@ -1,9 +1,11 @@
 import React from 'react';
 
 class CakeDisplay extends React.Component {
-    render () {
+    render (props) {
         return (
-            <h2>Second Component</h2>
+            <div>
+                {this.props.data}
+            </div>
         )
     }
 }

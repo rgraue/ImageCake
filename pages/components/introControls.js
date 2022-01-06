@@ -1,19 +1,25 @@
 import React from 'react';
 import Search from '../elements/search';
+import ImageCake from '../../modules/cake'
 
 class IntroControls extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.handleEnterOrgin = this.handleEnterOrgin.bind(this);
         this.createCake = this.createCake.bind(this);
-        this.state = {showSubmit : false};
+        this.state = {
+            showSubmit : false,
+            cake : ""
+        };
     }
 
-    createCake(){
-        console.log("hit")
+    createCake = () => {
+        let svg = new ImageCake().generateCake();
+        this.setState({cake:svg});
+        this.props.createCake(this.state.cake);
     }
 
-    handleEnterOrgin () {
+    handleEnterOrgin = () =>{
         this.setState({showSubmit : true});
     }
 
