@@ -1,6 +1,6 @@
 const IPFS = require('ipfs')
 const PNG = require('pngjs').PNG;
-const map = require('./data/map.json')
+const map = require('./public/map.json')
 const Cake = require('./modules/cake')
 const fs = require('fs')
 // COMPLEXITY = num of element files to read from
@@ -71,9 +71,8 @@ function generateCake (data) {
     // Creates Cake and renders img to out.png
     let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
     cake.render();
-    cake.write('data/out.png')
-    cake.writeSVG('data/out.svg')
     console.log("cake baked!")
+    cake.genSVG();
     console.log("image saved in data folder as out.png and out.svg")
 }
 
@@ -97,11 +96,11 @@ function getIPFSOrigin () {
  */
 function getLocalOrigin () {
     let result = {};
-    result[0] = 'data/backgrounds/background' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[1] = 'data/bodies/body' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[2] = 'data/heads/head' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[3] = 'data/hats/hat' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[4] = 'data/glasses/glasses' + Math.floor((Math.random() * COMPLEXITY)) + '.png';
+    result[0] = 'public/backgrounds/background' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[1] = 'public/bodies/body' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[2] = 'public/heads/head' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[3] = 'public/hats/hat' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[4] = 'public/glasses/glasses' + Math.floor((Math.random() * COMPLEXITY)) + '.png';
     return result;
 }
 

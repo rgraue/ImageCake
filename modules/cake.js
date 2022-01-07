@@ -1,6 +1,4 @@
 const Layer = require('./layer');
-const fs = require('fs');
-const PNG = require('pngjs').PNG;
 
 //Cake class. Cake is made of layers (png) to become one Cake (Layered Cake)
 class Cake {
@@ -41,25 +39,11 @@ class Cake {
       let glassesYOffset = Math.floor(fullHeight - (this.body._png.height + this.head._png.height / 6));
       this.data.mesh(this.glasses, centerOffset, glassesYOffset);
    }
-
-   /**
-   * Writes to given file
-   * @param {*string} file File to write to
-   */
-   write (file) {
-      fs.writeFileSync(file, PNG.sync.write(this.data._png))
-   }
-
-   writeSVG (file) {
-      fs.writeFileSync(file, this.genSVG());
-   }
-
      /**
       * writes to file in RLE compression
       * @param {String} file file to write to
       */
    genRLE () {
-      console.log("rle");
       let rle = '';
       let n = 0;
       let chunk = '';

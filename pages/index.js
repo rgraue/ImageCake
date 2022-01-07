@@ -9,7 +9,7 @@ class Index extends React.Component {
         this.state = {msg:''};
     }
 
-    handleCallBack = (childData) => {
+    handleCallBack = async (childData) => {
         this.setState({msg:childData})
     }
     render () {

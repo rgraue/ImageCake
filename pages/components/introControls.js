@@ -1,26 +1,25 @@
 import React from 'react';
 import Search from '../elements/search';
-import ImageCake from '../../modules/cake'
+import ImageCake from '../api/cakeAPI'
 
 class IntroControls extends React.Component{
     constructor(props){
         super(props);
         this.handleEnterOrgin = this.handleEnterOrgin.bind(this);
-        this.createCake = this.createCake.bind(this);
+        this.handleGenerateCake = this.handleGenerateCake.bind(this);
         this.state = {
             showSubmit : false,
             cake : ""
         };
     }
 
-    createCake = () => {
-        let svg = new ImageCake().generateCake();
-        this.setState({cake:svg});
-        this.props.createCake(this.state.cake);
-    }
-
     handleEnterOrgin = () =>{
         this.setState({showSubmit : true});
+    }
+
+    handleGenerateCake = async () => {
+        let cake = await fetch('http://localhost:3000/api/cakeAPI');
+        this.props.createCake(cake)
     }
 
     render () {
@@ -35,7 +34,7 @@ class IntroControls extends React.Component{
                 <div className='row'>
                     <div className='col'>
                         <button type='button' className='btn btn-primary btn-lg' 
-                            onClick={this.createCake}>Bake New Cake</button>
+                            onClick={this.handleGenerateCake}>Bake New Cake</button>
                     </div>
                     <div className='col'>
                         <button type='button' className='btn btn-primary btn-lg' 
