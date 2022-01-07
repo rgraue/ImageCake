@@ -18,8 +18,11 @@ class IntroControls extends React.Component{
     }
 
     handleGenerateCake = async () => {
-        let cake = await fetch('http://localhost:3000/api/cakeAPI');
-        this.props.createCake(cake)
+        let cake = await fetch('http://localhost:3000/api/cakeAPI')
+        .then((res) => {
+            return res.json()
+        });
+        this.props.createCake(cake.payload);
     }
 
     render () {
