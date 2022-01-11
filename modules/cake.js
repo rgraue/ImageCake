@@ -1,4 +1,7 @@
+const { flushSync } = require('react-dom');
 const Layer = require('./layer');
+const fs = require('fs');
+const PNG = require('pngjs').PNG;
 
 //Cake class. Cake is made of layers (png) to become one Cake (Layered Cake)
 class Cake {
@@ -30,6 +33,7 @@ class Cake {
       this.data.mesh(this.head, centerOffset, yOffset);
 
       // HAT
+      console.log(this.hat._png)
       centerOffset = (fullWidth - this.hat._png.width) / 2;
       yOffset -= Math.floor(this.hat._png.height - this.hat._png.height / 2);
       this.data.mesh(this.hat, centerOffset, yOffset);
@@ -38,6 +42,12 @@ class Cake {
       centerOffset = Math.floor((fullWidth - this.glasses._png.width) / 2);
       let glassesYOffset = Math.floor(fullHeight - (this.body._png.height + this.head._png.height / 6));
       this.data.mesh(this.glasses, centerOffset, glassesYOffset);
+
+      this.writeFile()
+   }
+
+   writeFile (){
+      fs.writeFileSync('./public/out.png', PNG.sync.write(this.data._png))
    }
      /**
       * writes to file in RLE compression
@@ -76,9 +86,10 @@ class Cake {
     */
    genSVG () {
       let rle = this.genRLE();
-      let svg = '<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">'
+      let svg = '<svg xmlns="http://www.w3.org/2000/svg">'
       svg += this.genRects(rle);
       svg += '</svg>';
+      fs.writeFileSync('./public/out.svg', svg);
       return svg;
    }
 
@@ -93,7 +104,7 @@ class Cake {
       let currWidth = 0;
       let currRow = 0;
       let pieces = this.genPieces(data);
-      // Iterate through individual pieces gernated in rle.
+      // Iterate through individual pieces generated in rle.
       for (let i = 0; i < pieces.length; i++){
          let chunk = pieces[i].split('#');
          let width = Number(chunk[0]);       // width/number of pixels with same val.
@@ -109,6 +120,7 @@ class Cake {
             currWidth += width;
          }
       }
+      console.log(currRow);
       return result;
    }
 
