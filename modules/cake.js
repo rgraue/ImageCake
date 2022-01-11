@@ -33,7 +33,6 @@ class Cake {
       this.data.mesh(this.head, centerOffset, yOffset);
 
       // HAT
-      console.log(this.hat._png)
       centerOffset = (fullWidth - this.hat._png.width) / 2;
       yOffset -= Math.floor(this.hat._png.height - this.hat._png.height / 2);
       this.data.mesh(this.hat, centerOffset, yOffset);
@@ -49,6 +48,7 @@ class Cake {
    writeFile (){
       fs.writeFileSync('./public/out.png', PNG.sync.write(this.data._png))
    }
+
      /**
       * writes to file in RLE compression
       * @param {String} file file to write to
@@ -57,21 +57,22 @@ class Cake {
       let rle = '';
       let n = 0;
       let chunk = '';
+      console.log(typeof this.data._png.data[2])
       //Iterate through png data
       for (let y = 0; y < this.data._png.height; y++){
          for (let x = 0; x < this.data._png.width; x++){
             let index = (this.data._png.width * y + x) << 2;
             // Create hex value of current pixel (#rgb)
-            let current = '#' +   this.data._png.data[index].toString(16) + 
-                                 this.data._png.data[index + 1].toString(16) + 
-                                 this.data._png.data[index + 2].toString(16)
+            let current = '#' +   this.data._png.data[index].toString(16).padStart(2,'0') +
+                                 this.data._png.data[index + 1].toString(16).padStart(2,'0') +
+                                 this.data._png.data[index + 2].toString(16).padStart(2,'0')
             if (chunk === ''){ // starting fence post catch.
                chunk = current;
             }
             if (current === chunk){ // If the same pixel val occurs again, incriment n
                n++;
             } else {                // If different pixel val, then add rle val of previous pixel val to result.
-               rle += n + chunk;
+               rle += n + chunk//.substring(0,chunk.length-3);
                n = 1;
                chunk = current;
             } 

@@ -11,20 +11,23 @@ const args = process.argv.slice(2);
  * Entry point. Creates a single image dpeending on local or IPFS data.
  */
 function main () {
-    if (args.length === 0){                 // if no args
-        let origin = getLocalOrigin();
-        createLocal(origin);
-    } else {
-        let format = args[0];
-        if (format === 'ipfs'){              // if arg = ipfs
-            // ipfs file storage
-            let origin = getIPFSOrigin();
-            createIPFS(origin);
-        } else {                             // if any other arg given   
-            let origin = getLocalOrigin();
-            createLocal(origin);
-        }
-    }
+    let test = 0xff;
+    console.log(test.toString(16).padStart(2,'0'))
+
+    // if (args.length === 0){                 // if no args
+    //     let origin = getLocalOrigin();
+    //     createLocal(origin);
+    // } else {
+    //     let format = args[0];
+    //     if (format === 'ipfs'){              // if arg = ipfs
+    //         // ipfs file storage
+    //         let origin = getIPFSOrigin();
+    //         createIPFS(origin);
+    //     } else {                             // if any other arg given   
+    //         let origin = getLocalOrigin();
+    //         createLocal(origin);
+    //     }
+    // }
 }
 
 /**
