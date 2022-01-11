@@ -30,8 +30,8 @@ class Layer {
                 let indexT = (top.width * y + x) << 2; // Top index
 
                 // determines whether part of images is transparent
-                if ((top.data[indexT] !== 0x000 && top.data[indexT+1] !== 0x000 &&
-                        top.data[indexT + 2] !== 0x000)){
+                // if not transparent then set base pixel to top pixel val.
+                if (top.data[indexT + 3] !== 0x00){
 
                     // if not transaprent replace base pixel data with top pixel data (rgba)
                     bottom.data[indexB] = top.data[indexT];
