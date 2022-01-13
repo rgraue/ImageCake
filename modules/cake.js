@@ -57,7 +57,6 @@ class Cake {
       let rle = '';
       let n = 0;
       let chunk = '';
-      console.log(typeof this.data._png.data[2])
       //Iterate through png data
       for (let y = 0; y < this.data._png.height; y++){
          for (let x = 0; x < this.data._png.width; x++){

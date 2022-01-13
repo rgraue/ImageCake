@@ -13,23 +13,40 @@ class IntroControls extends React.Component{
         };
     }
 
+    /**
+     * Reveals search bar to input Origin
+     */
     handleEnterOrgin = () =>{
         this.setState({showSubmit : true});
     }
 
+    /**
+     * Handles the API to retrieve new Cake.
+     * {payload:{svg,origin}}
+     */
     handleGenerateCake = async () => {
-        let cake = await fetch('http://localhost:3000/api/cakeAPI')
+        let cake = await fetch('http://localhost:3000/api/cakeAPI',{
+            method:'GET'
+        })
         .then((res) => {
             return res.json()
         });
         this.props.createCake(cake);
     }
 
+    handleOriginGetCallBack = async (childData) =>{
+
+    }
+
+    /**
+     * Controls what to render on the site
+     * @returns JSX to be rendered on site
+     */
     render () {
         let submit;
         if (this.state.showSubmit) {
             submit =    <div className='row'>
-                            <Search/>
+                            <Search getOrigin = {this.handleOriginGetCallBack}/>
                         </div>
         }
         return (

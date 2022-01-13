@@ -6,8 +6,12 @@ class CakeDisplay extends React.Component {
         let svg;
         let origin;
         if (this.props.data){
-            svg = <SVG src={this.props.data.payload.svg}/>
-            origin = <h2>This Cake&#39;s Origin: {this.props.data.payload.origin}</h2>
+            if (this.props.data.payload.error){
+                svg = <p>{this.props.data.payload.error}</p>
+            } else {
+                svg = <SVG src={this.props.data.payload.svg}/>
+                origin = <h2>This Cake&#39;s Origin: {this.props.data.payload.origin}</h2>
+            }
         }
         return (
             <div>
