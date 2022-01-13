@@ -3,6 +3,7 @@ const PNG = require('pngjs').PNG;
 const map = require('./public/map.json')
 const Cake = require('./modules/cake')
 const fs = require('fs')
+const ID = require('./modules/id')
 // COMPLEXITY = num of element files to read from
 const COMPLEXITY = 2;
 const args = process.argv.slice(2);
@@ -11,8 +12,10 @@ const args = process.argv.slice(2);
  * Entry point. Creates a single image dpeending on local or IPFS data.
  */
 function main () {
-    let test = 0xff;
-    console.log(test.toString(16).padStart(2,'0'))
+   let id = new ID();
+   let s = id.encode([0,5,2,8,2,6])
+   console.log(s)
+   console.log(id.decode(s))
 
     // if (args.length === 0){                 // if no args
     //     let origin = getLocalOrigin();

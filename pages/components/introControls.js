@@ -22,7 +22,7 @@ class IntroControls extends React.Component{
         .then((res) => {
             return res.json()
         });
-        this.props.createCake(cake.payload);
+        this.props.createCake(cake);
     }
 
     render () {

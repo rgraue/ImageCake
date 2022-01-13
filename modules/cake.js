@@ -121,7 +121,6 @@ class Cake {
             currWidth += width;
          }
       }
-      console.log(currRow);
       return result;
    }
 
