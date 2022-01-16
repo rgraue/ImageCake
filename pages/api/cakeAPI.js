@@ -6,6 +6,6 @@ export default function handler(req, res){
         let svg = cake.generateCake();
         res.status(200).json({payload : svg});
     } else {
-        res.status(200).json({payload:{error:"No Requrest Method Identified"}})
+        res.status(200).json({payload:{error:"No Requrest Method Identified"}});
     }
 }

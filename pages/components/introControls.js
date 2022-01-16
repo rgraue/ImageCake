@@ -25,7 +25,7 @@ class IntroControls extends React.Component{
      * {payload:{svg,origin}}
      */
     handleGenerateCake = async () => {
-        let cake = await fetch('http://localhost:3000/api/cakeAPI',{
+        let cake = await fetch('/api/cakeAPI',{
             method:'GET'
         })
         .then((res) => {
