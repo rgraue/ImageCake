@@ -1,8 +1,9 @@
 const IPFS = require('ipfs')
 const PNG = require('pngjs').PNG;
-const map = require('./data/map.json')
+const map = require('./public/map.json')
 const Cake = require('./modules/cake')
 const fs = require('fs')
+const ID = require('./modules/id')
 // COMPLEXITY = num of element files to read from
 const COMPLEXITY = 2;
 const args = process.argv.slice(2);
@@ -11,20 +12,25 @@ const args = process.argv.slice(2);
  * Entry point. Creates a single image dpeending on local or IPFS data.
  */
 function main () {
-    if (args.length === 0){                 // if no args
-        let origin = getLocalOrigin();
-        createLocal(origin);
-    } else {
-        let format = args[0];
-        if (format === 'ipfs'){              // if arg = ipfs
-            // ipfs file storage
-            let origin = getIPFSOrigin();
-            createIPFS(origin);
-        } else {                             // if any other arg given   
-            let origin = getLocalOrigin();
-            createLocal(origin);
-        }
-    }
+   let id = new ID();
+   let s = id.encode([0,5,2,8,2,6])
+   console.log(s)
+   console.log(id.decode(s))
+
+    // if (args.length === 0){                 // if no args
+    //     let origin = getLocalOrigin();
+    //     createLocal(origin);
+    // } else {
+    //     let format = args[0];
+    //     if (format === 'ipfs'){              // if arg = ipfs
+    //         // ipfs file storage
+    //         let origin = getIPFSOrigin();
+    //         createIPFS(origin);
+    //     } else {                             // if any other arg given   
+    //         let origin = getLocalOrigin();
+    //         createLocal(origin);
+    //     }
+    // }
 }
 
 /**
@@ -71,9 +77,8 @@ function generateCake (data) {
     // Creates Cake and renders img to out.png
     let cake = new Cake(data[0],data[1],data[2],data[3],data[4])
     cake.render();
-    cake.write('data/out.png')
-    cake.writeSVG('data/out.svg')
     console.log("cake baked!")
+    cake.genSVG();
     console.log("image saved in data folder as out.png and out.svg")
 }
 
@@ -97,11 +102,11 @@ function getIPFSOrigin () {
  */
 function getLocalOrigin () {
     let result = {};
-    result[0] = 'data/backgrounds/background' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[1] = 'data/bodies/body' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[2] = 'data/heads/head' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[3] = 'data/hats/hat' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
-    result[4] = 'data/glasses/glasses' + Math.floor((Math.random() * COMPLEXITY)) + '.png';
+    result[0] = 'public/backgrounds/background' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[1] = 'public/bodies/body' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[2] = 'public/heads/head' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[3] = 'public/hats/hat' + Math.floor((Math.random()*COMPLEXITY)) + '.png';
+    result[4] = 'public/glasses/glasses' + Math.floor((Math.random() * COMPLEXITY)) + '.png';
     return result;
 }
 

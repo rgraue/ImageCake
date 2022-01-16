@@ -1,0 +1,72 @@
+/**
+ * Supports the Origin capability of Image Cake.
+ * Encoded strings hold the paramaters for a viable origin array.
+ */
+class ID{
+    constructor  () {
+        this.complexity = 2;
+        this.data = {};
+    }
+
+    genOrigin (s = undefined){
+        if (s === undefined) {              // if no origin. Generate new
+            let result = []
+            // randomly populates array within complexity limits
+            for (let i = 0; i < 6; i++){
+                result.push(Math.floor(Math.random()*this.complexity));
+            }
+            let s = this.encode(result); // create encoded string
+            this.data['s'] = s;
+            this.data['arr'] = result;
+            return this.data;
+
+        } else {                                // if origin given
+            let arr = this.decode(s);
+            // ensure viable origin array.
+            // length of 6
+            // nothing larger then complexity
+            // nothing smaller then 0
+            if (arr.length === 6 && Math.max(arr) < this.complexity && Math.min(arr) >= 0){
+                this.data['arr'] = arr;
+                this.data['s'] = s;
+            } else {
+                this.data['error'] = "Invalid Origin"
+            }
+            return this.data;
+        }
+    }
+    // turns array of numbers into id string
+    encode (arr) {
+        let prefix;
+        let result = '';
+        for (let i in arr){
+            if(Math.abs(i - arr[i]) === 1){
+                prefix = '' + i - arr[i] * 2
+            } else {
+                prefix = '' + i-arr[i];
+            }
+            let bin = arr[i].toString(2).padStart(6, prefix)
+            //console.log(bin)
+            result+=Buffer.from(bin).toString('base64');
+        }
+        return result;
+    }
+    // decodes id string into array[6] of numbers
+    decode (s) {
+        let result= [];
+        for (let i = 0; i < 6; i++){
+            let chunk = s.substring(i*8, i*8 + 8);
+            let padded = Buffer.from(chunk,'base64').toString()
+            let prefix = padded.split('1',1)
+
+            let bin = padded.replace(prefix, '0')
+
+            let num = parseInt(bin, 2)
+            result[i] = num;
+        }
+        return result;
+    }
+
+}
+
+module.exports = ID;

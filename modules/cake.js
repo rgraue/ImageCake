@@ -1,3 +1,4 @@
+const { flushSync } = require('react-dom');
 const Layer = require('./layer');
 const fs = require('fs');
 const PNG = require('pngjs').PNG;
@@ -40,18 +41,12 @@ class Cake {
       centerOffset = Math.floor((fullWidth - this.glasses._png.width) / 2);
       let glassesYOffset = Math.floor(fullHeight - (this.body._png.height + this.head._png.height / 6));
       this.data.mesh(this.glasses, centerOffset, glassesYOffset);
+
+      this.writeFile()
    }
 
-   /**
-   * Writes to given file
-   * @param {*string} file File to write to
-   */
-   write (file) {
-      fs.writeFileSync(file, PNG.sync.write(this.data._png))
-   }
-
-   writeSVG (file) {
-      fs.writeFileSync(file, this.genSVG());
+   writeFile (){
+      fs.writeFileSync('./public/out.png', PNG.sync.write(this.data._png))
    }
 
      /**
@@ -59,7 +54,6 @@ class Cake {
       * @param {String} file file to write to
       */
    genRLE () {
-      console.log("rle");
       let rle = '';
       let n = 0;
       let chunk = '';
@@ -68,16 +62,16 @@ class Cake {
          for (let x = 0; x < this.data._png.width; x++){
             let index = (this.data._png.width * y + x) << 2;
             // Create hex value of current pixel (#rgb)
-            let current = '#' +   this.data._png.data[index].toString(16) + 
-                                 this.data._png.data[index + 1].toString(16) + 
-                                 this.data._png.data[index + 2].toString(16)
+            let current = '#' +   this.data._png.data[index].toString(16).padStart(2,'0') +
+                                 this.data._png.data[index + 1].toString(16).padStart(2,'0') +
+                                 this.data._png.data[index + 2].toString(16).padStart(2,'0')
             if (chunk === ''){ // starting fence post catch.
                chunk = current;
             }
             if (current === chunk){ // If the same pixel val occurs again, incriment n
                n++;
             } else {                // If different pixel val, then add rle val of previous pixel val to result.
-               rle += n + chunk;
+               rle += n + chunk//.substring(0,chunk.length-3);
                n = 1;
                chunk = current;
             } 
@@ -92,9 +86,10 @@ class Cake {
     */
    genSVG () {
       let rle = this.genRLE();
-      let svg = '<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">'
+      let svg = '<svg xmlns="http://www.w3.org/2000/svg">'
       svg += this.genRects(rle);
       svg += '</svg>';
+      fs.writeFileSync('./public/out.svg', svg);
       return svg;
    }
 
@@ -109,7 +104,7 @@ class Cake {
       let currWidth = 0;
       let currRow = 0;
       let pieces = this.genPieces(data);
-      // Iterate through individual pieces gernated in rle.
+      // Iterate through individual pieces generated in rle.
       for (let i = 0; i < pieces.length; i++){
          let chunk = pieces[i].split('#');
          let width = Number(chunk[0]);       // width/number of pixels with same val.
