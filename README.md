@@ -1,30 +1,17 @@
 # ImageCake
-Node application to create randomized layered images.
+Next.js Application to create and lookup procedually generated images (Cakes).
 
-Utilizes both local and IPFS storgae.
-
-## Usage
+## Local Deployment
 node dependencies `npm install`
 
 After dependecies are installed/updated...
 
-### Local png elements
+`npx next build` -> `npm start`
 
-Simply Run `node index.js`
+Site is now running at `localhost:3000/`
 
-
-### IPFS png elements
-
-Obtain IPFS element folder with CID: `QmQ6zStvqTqGf6bxzL4xkgyBdF5YDqCohnJ3e6jFWHY6Sn`
-
-Once IPFS files are localized and running on **IPFS Desktop**
-
-Run `node index.js ipfs`
-
-### Results
-
-The randomized images will appear in the data folder. One as `out.svg` and the other as `out.png`
-
+### Cake Origins
+Each Cake has its own unique Origin. This Origin is used to render the specific Cake.
 
 One of many examples
 <br>
