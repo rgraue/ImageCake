@@ -14,8 +14,8 @@ const COMPLEXITY = 2;
 function main () {
    let id = new ID();
    let cake = new Cake();
-   let s = id.encode([0,0,0,0,0,0])
-   //console.log(s)
+   let s = id.encode([1,0,0,0,0,0])
+   console.log(s)
    //console.log(id.decode(s))
    let testCake = cake.generateCake(s);
    console.log(testCake.origin);
