@@ -29,13 +29,27 @@ class IntroControls extends React.Component{
             method:'GET'
         })
         .then((res) => {
-            return res.json()
+            return res.json();
         });
         this.props.createCake(cake);
     }
 
+    /**
+     * handles fetching cake given a origin
+     * @param {string} childData origin string
+     */
     handleOriginGetCallBack = async (childData) =>{
-
+        let cake = await fetch('/api/cakeAPI',{
+            method:'POST',
+            body:JSON.stringify({"origin":childData})
+        }).then((res) => {
+            return res.json();
+        })
+        if (cake.payload.error){
+            console.log("No mathcing origin")
+        } else {
+            this.props.createCake(cake);
+        }
     }
 
     /**
@@ -46,7 +60,7 @@ class IntroControls extends React.Component{
         let submit;
         if (this.state.showSubmit) {
             submit =    <div className='row'>
-                            <Search getOrigin = {this.handleOriginGetCallBack}/>
+                            <Search cakeOrigin = {this.handleOriginGetCallBack}/>
                         </div>
         }
         return (
