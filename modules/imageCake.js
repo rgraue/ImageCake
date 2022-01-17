@@ -1,8 +1,8 @@
 //const PNG = require('pngjs').PNG;
 const PNG = require('pngjs').PNG;
-import Cake from './cake';
-import fs from 'fs';
-import ID from './id' 
+const Cake = require('./cake');
+const fs = require('fs');
+const ID = require('./id'); 
 
 class ImageCake {
     // Creates a Image Cake svg
@@ -65,5 +65,5 @@ class ImageCake {
     }
 }
 
-export default ImageCake;
+module.exports = ImageCake;
 

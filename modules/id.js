@@ -1,6 +1,7 @@
 /**
  * Supports the Origin capability of Image Cake.
  * Encoded strings hold the paramaters for a viable origin array.
+ * Max Origin Element number is 64
  */
 class ID{
     constructor  () {
@@ -26,7 +27,7 @@ class ID{
             // length of 6
             // nothing larger then complexity
             // nothing smaller then 0
-            if (arr.length === 6 && Math.max(arr) < this.complexity && Math.min(arr) >= 0){
+            if (arr.length === 6 && Math.max(...arr) < this.complexity && Math.min(...arr) >= 0){
                 this.data['arr'] = arr;
                 this.data['s'] = s;
             } else {
@@ -37,16 +38,13 @@ class ID{
     }
     // turns array of numbers into id string
     encode (arr) {
-        let prefix;
+        //let prefix = '';
         let result = '';
         for (let i in arr){
-            if(Math.abs(i - arr[i]) === 1){
-                prefix = '' + i - arr[i] * 2
-            } else {
-                prefix = '' + i-arr[i];
-            }
-            let bin = arr[i].toString(2).padStart(6, prefix)
-            //console.log(bin)
+            let prefix = '';
+            prefix += Buffer.from(''+(i-arr[i] << 8)).toString('base64');
+            prefix.replaceAll(prefix, 'r');
+            let bin = arr[i].toString(2).padStart(6, prefix);
             result+=Buffer.from(bin).toString('base64');
         }
         return result;

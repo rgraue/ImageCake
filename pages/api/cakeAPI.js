@@ -8,7 +8,6 @@ export default function handler(req, res){
         res.status(200).json({payload : svg});
     } else if (req.method === 'POST'){
         let body = JSON.parse(req.body);
-        console.log(body);
         svg = cake.generateCake(body.origin);
         res.status(200).json({payload:svg});
     } else {
