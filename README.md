@@ -2,7 +2,7 @@
 Next.js Application to create and lookup procedually generated images (Cakes).
 
 # Heroku Deployment
-[](https://floating-dusk-66008.herokuapp.com/) *In Development*
+[https://floating-dusk-66008.herokuapp.com/](https://floating-dusk-66008.herokuapp.com/) *In Development*
 
 ## Local Deployment
 node dependencies `npm install`
