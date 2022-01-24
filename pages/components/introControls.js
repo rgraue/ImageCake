@@ -64,15 +64,17 @@ class IntroControls extends React.Component{
                         </div>
         }
         return (
-            <div>
-                <div className='row'>
-                    <div className='col'>
-                        <button type='button' className='btn btn-primary btn-lg' 
+            <div style={{
+                padding : "0.5em"
+            }}>
+                <div className='row justify-content-md-center'>
+                    <div className='col col-lg-2'>
+                        <button type='button' className='btn btn-light btn-lg' 
                             onClick={this.handleGenerateCake}>Bake New Cake</button>
                     </div>
-                    <div className='col'>
-                        <button type='button' className='btn btn-primary btn-lg' 
-                            onClick={this.handleEnterOrgin}>Already Have Cake Origin</button>
+                    <div className='col col-lg-2'>
+                        <button type='button' className='btn btn-light btn-lg' 
+                            onClick={this.handleEnterOrgin}>Already Have Cake</button>
                     </div>
                 </div>
                 {submit}

@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Banner from './components/banner';
 import IntroControls from './components/introControls';
 import CakeDisplay from './components/cakeDisplay';
 import React from 'react';
@@ -14,8 +14,10 @@ class Index extends React.Component {
     }
     render () {
         return (
-            <body>
-                <h1>Image Cake</h1>
+            <body style = {{
+                
+            }}>
+                <Banner/>
                 <IntroControls createCake = {this.handleCallBack}/>
                 <CakeDisplay data={this.state.msg}/>
             </body>

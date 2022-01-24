@@ -10,14 +10,25 @@ class CakeDisplay extends React.Component {
                 svg = <p>{this.props.data.payload.error}</p>
             } else {
                 svg = <SVG src={this.props.data.payload.svg}/>
-                origin = <h2>This Cake&#39;s Origin: {this.props.data.payload.origin}</h2>
+                origin = <p>This Cake&#39;s Origin: <strong>{this.props.data.payload.origin}</strong></p>
             }
         }
         return (
-            <div>
-                {svg}
-                {origin}
+            <div style={{
+                padding : "1em"
+            }}>
+                <div className='row justify-content-lg-center'>
+                    <div className='col col-lg-4'>
+                        {svg}
+                    </div>
+                </div>
+                <div className='row justify-content-lg-center'>
+                    <div className='col col-lg-6'>
+                        {origin}
+                    </div>
+                </div>
             </div>
+            
         )
     }
 }

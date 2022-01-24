@@ -23,11 +23,15 @@ class Search extends React.Component {
 
     render () {
         return (
-            <div className = 'input-group mb-3'>
-                <input type='text' value={this.state.origin}  onChange={evt => this.updateOrigin(evt)} className='form-control' placeholder='Enter existing Origin'/>
-                <div className='input-group-append'>
-                    <button className='btn btn-outline-secondary' 
-                            type='button' onClick={this.getOrigin}>Get Cake</button>
+            <div className='row justify-content-md-center'>
+                <div className='col col-lg-6'>
+                    <div className = 'input-group mb-3'>
+                        <input type='text' value={this.state.origin}  onChange={evt => this.updateOrigin(evt)} className='form-control' placeholder='Enter existing Origin'/>
+                        <div className='input-group-append'>
+                            <button className='btn btn-outline-secondary' 
+                                    type='button' onClick={this.getOrigin}>Get Cake</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
