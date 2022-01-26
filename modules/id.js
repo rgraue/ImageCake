@@ -5,7 +5,7 @@
  */
 class ID{
     constructor  () {
-        this.complexity = 2;
+        this.complexity = 3;        // Number of variations of each element. 
         this.data = {};
     }
 
