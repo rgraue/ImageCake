@@ -9,7 +9,7 @@ node dependencies `npm install`
 
 After dependecies are installed/updated...
 
-`npx next build` -> `npm start`
+`npx next build` -> `npm start -p <port>`
 
 Site is now running at `localhost:3000/`
 
