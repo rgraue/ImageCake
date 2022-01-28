@@ -41,8 +41,9 @@ class Cake {
       centerOffset = Math.floor((fullWidth - this.glasses._png.width) / 2);
       let glassesYOffset = Math.floor(fullHeight - (this.body._png.height + this.head._png.height / 6));
       this.data.mesh(this.glasses, centerOffset, glassesYOffset);
-
-      this.writeFile()
+      
+      // Uncomment to have writen locally as png
+      //this.writeFile()
    }
 
    writeFile (){
@@ -89,7 +90,6 @@ class Cake {
       let svg = '<svg xmlns="http://www.w3.org/2000/svg">'
       svg += this.genRects(rle);
       svg += '</svg>';
-      fs.writeFileSync('./public/out.svg', svg);
       return svg;
    }
 
