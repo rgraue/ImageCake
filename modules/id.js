@@ -23,6 +23,7 @@ class ID{
 
         } else {                                // if origin given
             let arr = this.decode(s);
+            console.log(arr);
             // ensure viable origin array.
             // length of 6
             // nothing larger then complexity
@@ -57,7 +58,7 @@ class ID{
             let padded = Buffer.from(chunk,'base64').toString()
             let prefix = padded.split('1',1)
 
-            let bin = padded.replace(prefix, '0')
+            let bin = padded.replace(prefix, '0')                   //BUGBUG always makes array of 0's if wrong id or no id
 
             let num = parseInt(bin, 2)
             result[i] = num;
