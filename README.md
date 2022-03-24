@@ -1,4 +1,4 @@
-# ImageCake
+# ImageCake!
 Next.js Application to create and lookup procedually generated images (Cakes).
 
 # Heroku Deployment

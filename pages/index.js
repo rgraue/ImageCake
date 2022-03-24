@@ -17,7 +17,7 @@ class Index extends React.Component {
             <body style = {{
                 
             }}>
-                <Banner/>
+                <Banner />
                 <IntroControls createCake = {this.handleCallBack}/>
                 <CakeDisplay data={this.state.msg}/>
             </body>
